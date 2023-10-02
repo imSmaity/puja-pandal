@@ -1,20 +1,24 @@
-import React from 'react';
-import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import React from "react";
+import {
+  Image,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { Card } from "./components";
+import Start from "./Start";
 
-function App(): JSX.Element {
+const App = () => {
   return (
-    <SafeAreaView>
-      <StatusBar />
-      <View style={style.container}>
-        <Text style={style.text}>Durga Maa</Text>
-      </View>
-    </SafeAreaView>
+    // <SafeAreaView>
+    <>
+      <StatusBar backgroundColor={"#b8b5b5"} />
+      <Start />
+    </>
+    // </SafeAreaView>
   );
-}
+};
 
 export default App;
-
-const style = StyleSheet.create({
-  container: {backgroundColor: '#ffffff', height: '100%'},
-  text: {color: '#000000'},
-});
