@@ -11,7 +11,7 @@ import {
 interface ICardProps {
   title: string;
   image: {
-    source: string;
+    source: any;
     width: number;
     height: number;
     style?: any;
@@ -22,17 +22,19 @@ interface ICardProps {
 
 const Card = ({ title, image, onPress }: ICardProps) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View>
-        <Image
-          source={require("../../assets/images/l1.png")}
-          width={image.width}
-          height={image.height}
-          style={image.style}
-        />
-        <Text style={{ color: "#000000" }}>{title}</Text>
-      </View>
-    </TouchableOpacity>
+    <View style={{ padding: "2%", paddingLeft: "3.5%", paddingRight: "1%" }}>
+      <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
+        {image.source ? (
+          <Image
+            source={image.source}
+            width={image.width}
+            height={image.height}
+            style={image.style}
+          />
+        ) : null}
+        <Text style={{ color: "#000000", textAlign: "center" }}>{title}</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
