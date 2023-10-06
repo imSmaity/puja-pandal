@@ -4,7 +4,7 @@ import { Card } from "../../components";
 import { HomeScreenProps } from "../../types";
 
 const Home = ({ navigation }: HomeScreenProps) => {
-  const locations = [
+  const col1 = [
     {
       id: "1",
       title: "Alipurduar",
@@ -119,7 +119,141 @@ const Home = ({ navigation }: HomeScreenProps) => {
       id: "11",
       title: "Kalimpong",
       image: {
-        source: require("../../../assets/images/l10.png"),
+        source: require("../../../assets/images/l11.png"),
+        width: 10,
+        height: 10,
+        style: { width: 100, height: 100, resizeMode: "contain" },
+      },
+      onPress: () => navigation.navigate("Map"),
+    },
+  ];
+  const col2 = [
+    {
+      id: "1",
+      title: "Kolkata",
+      image: {
+        source: require("../../../assets/images/l12.png"),
+        width: 10,
+        height: 10,
+        style: { width: 100, height: 100, resizeMode: "contain" },
+      },
+      onPress: () => navigation.navigate("Map"),
+    },
+    {
+      id: "2",
+      title: "Malda",
+      image: {
+        source: require("../../../assets/images/l13.png"),
+        width: 10,
+        height: 10,
+        style: { width: 100, height: 100, resizeMode: "contain" },
+      },
+      onPress: () => navigation.navigate("Map"),
+    },
+    {
+      id: "3",
+      title: "Murshidabad",
+      image: {
+        source: require("../../../assets/images/l14.png"),
+        width: 10,
+        height: 10,
+        style: { width: 100, height: 100, resizeMode: "contain" },
+      },
+      onPress: () => navigation.navigate("Map"),
+    },
+    {
+      id: "4",
+      title: "Nadia",
+      image: {
+        source: require("../../../assets/images/l15.png"),
+        width: 10,
+        height: 10,
+        style: { width: 100, height: 100, resizeMode: "contain" },
+      },
+      onPress: () => navigation.navigate("Map"),
+    },
+    {
+      id: "5",
+      title: "North 24 Parganas",
+      image: {
+        source: require("../../../assets/images/l16.png"),
+        width: 10,
+        height: 10,
+        style: { width: 100, height: 100, resizeMode: "contain" },
+      },
+      onPress: () => navigation.navigate("Map"),
+    },
+    {
+      id: "6",
+      title: "Paschim Bardhaman",
+      image: {
+        source: require("../../../assets/images/l17.png"),
+        width: 10,
+        height: 10,
+        style: { width: 100, height: 100, resizeMode: "contain" },
+      },
+      onPress: () => navigation.navigate("Map"),
+    },
+    {
+      id: "7",
+      title: "Paschim Medinipur",
+      image: {
+        source: require("../../../assets/images/l18.png"),
+        width: 10,
+        height: 10,
+        style: { width: 100, height: 100, resizeMode: "contain" },
+      },
+      onPress: () => navigation.navigate("Map"),
+    },
+    {
+      id: "8",
+      title: "Purba Bardhaman",
+      image: {
+        source: require("../../../assets/images/l19.png"),
+        width: 10,
+        height: 10,
+        style: { width: 100, height: 100, resizeMode: "contain" },
+      },
+      onPress: () => navigation.navigate("Map"),
+    },
+    {
+      id: "9",
+      title: "Purba Medinipur",
+      image: {
+        source: require("../../../assets/images/l20.png"),
+        width: 10,
+        height: 10,
+        style: { width: 100, height: 100, resizeMode: "contain" },
+      },
+      onPress: () => navigation.navigate("Map"),
+    },
+    {
+      id: "10",
+      title: "Purulia",
+      image: {
+        source: require("../../../assets/images/l21.png"),
+        width: 10,
+        height: 10,
+        style: { width: 100, height: 100, resizeMode: "contain" },
+      },
+      onPress: () => navigation.navigate("Map"),
+    },
+    {
+      id: "11",
+      title: "South 24 Parganas",
+      image: {
+        source: require("../../../assets/images/l22.png"),
+        width: 10,
+        height: 10,
+        style: { width: 100, height: 100, resizeMode: "contain" },
+      },
+      onPress: () => navigation.navigate("Map"),
+    },
+    {
+      id: "12",
+      title: "Uttar Dinajpur",
+      image: {
+        source: require("../../../assets/images/l23.png"),
         width: 10,
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
@@ -159,7 +293,7 @@ const Home = ({ navigation }: HomeScreenProps) => {
       <View style={{ paddingBottom: "5%", paddingTop: "3%" }}>
         <FlatList
           horizontal
-          data={locations}
+          data={col1}
           keyExtractor={(location) => location.id}
           renderItem={(location) => (
             <Card
@@ -174,7 +308,7 @@ const Home = ({ navigation }: HomeScreenProps) => {
       <View style={{ paddingBottom: "5%", paddingTop: "3%" }}>
         <FlatList
           horizontal
-          data={locations}
+          data={col2}
           keyExtractor={(location) => location.id}
           renderItem={(location) => (
             <Card
@@ -184,7 +318,7 @@ const Home = ({ navigation }: HomeScreenProps) => {
               onPress={location.item.onPress}
             />
           )}
-          contentContainerStyle={{ paddingRight: "115%" }}
+          contentContainerStyle={{ paddingRight: "185%" }}
         />
       </View>
     </View>
