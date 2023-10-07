@@ -14,7 +14,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "2",
@@ -25,7 +24,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "3",
@@ -36,7 +34,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "4",
@@ -47,7 +44,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "5",
@@ -58,7 +54,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "6",
@@ -69,7 +64,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "7",
@@ -80,7 +74,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "8",
@@ -91,7 +84,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "9",
@@ -102,7 +94,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "10",
@@ -113,7 +104,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "11",
@@ -124,7 +114,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
   ];
   const col2 = [
@@ -137,7 +126,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "2",
@@ -148,7 +136,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "3",
@@ -159,7 +146,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "4",
@@ -170,7 +156,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "5",
@@ -181,7 +166,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "6",
@@ -192,7 +176,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "7",
@@ -203,7 +186,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "8",
@@ -214,7 +196,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "9",
@@ -225,7 +206,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "10",
@@ -236,7 +216,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "11",
@@ -247,7 +226,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
     {
       id: "12",
@@ -258,7 +236,6 @@ const Home = ({ navigation }: HomeScreenProps) => {
         height: 10,
         style: { width: 100, height: 100, resizeMode: "contain" },
       },
-      onPress: () => navigation.navigate("Map"),
     },
   ];
   return (
@@ -299,7 +276,9 @@ const Home = ({ navigation }: HomeScreenProps) => {
             <Card
               title={location.item.title}
               image={location.item.image}
-              onPress={location.item.onPress}
+              onPress={() =>
+                navigation.navigate("Map", { place: location.item.title })
+              }
             />
           )}
           contentContainerStyle={{ paddingRight: "145%" }}
@@ -315,7 +294,9 @@ const Home = ({ navigation }: HomeScreenProps) => {
               key={location.item.id}
               title={location.item.title}
               image={location.item.image}
-              onPress={location.item.onPress}
+              onPress={() =>
+                navigation.navigate("Map", { place: location.item.title })
+              }
             />
           )}
           contentContainerStyle={{ paddingRight: "185%" }}

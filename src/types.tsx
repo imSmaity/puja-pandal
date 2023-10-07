@@ -2,7 +2,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type RootStackParamList = {
   Home: undefined;
-  Map: undefined;
+  Map: { place: string };
   Profile: undefined;
 };
 export type HomeScreenProps = {
