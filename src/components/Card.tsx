@@ -1,11 +1,9 @@
 import React from "react";
 import {
   Image,
-  ImageStyle,
   Text,
   TouchableOpacity,
   View,
-  ViewStyle,
 } from "react-native";
 
 interface ICardProps {
@@ -22,14 +20,32 @@ interface ICardProps {
 
 const Card = ({ title, image, onPress }: ICardProps) => {
   return (
-    <View style={{ padding: "2%", paddingLeft: "3.5%", paddingRight: "1%" }}>
-      <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
+    <View
+      style={{
+        padding: 8,
+        backgroundColor: "#ffff",
+        shadowColor: "#000000",
+        elevation: 4,
+        borderRadius: 4,
+      }}
+    >
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={onPress}
+        style={{
+          elevation: 10,
+        }}
+      >
         {image.source ? (
           <Image
             source={image.source}
             width={image.width}
             height={image.height}
-            style={image.style}
+            style={{
+              ...image.style,
+              objectFit: "contain",
+              margin: "0 auto"
+            }}
           />
         ) : null}
         <Text style={{ color: "#000000", textAlign: "center" }}>{title}</Text>
