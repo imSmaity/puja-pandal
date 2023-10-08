@@ -32,7 +32,7 @@ const Home = ({ navigation }: HomeScreenProps) => {
         style={{
           alignItems: "center",
           padding: "5%",
-          height: 350,
+          height: "40%",
         }}
       >
         <Image
