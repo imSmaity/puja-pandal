@@ -19,6 +19,7 @@ const RenderCards = ({ data, navigation }: any) => {
           title={location.title}
           image={location.image}
           onPress={() => navigation.navigate("Map", { place: location.title })}
+          key={location.id}
         />
       ))}
     </View>
