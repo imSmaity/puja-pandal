@@ -11,7 +11,7 @@ const Start = () => {
   const Stack = createNativeStackNavigator();
   const select = useAppSelector(mapSelector);
   const dispatch = useAppDispatch();
-  console.log(select);
+
   useEffect(() => {
     dispatch(fetchMap({ id: "20" }));
   }, []);
