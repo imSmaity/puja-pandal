@@ -8,3 +8,10 @@ type RootStackParamList = {
 export type HomeScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, "Home">; // Replace 'RootStackParamList' with your actual stack navigator's param list
 };
+
+
+
+export interface ICoordinate{
+  latitude:number
+  longitude:number
+}
