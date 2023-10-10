@@ -1,3 +1,4 @@
 import Card from "./Card";
+import LocationMarker from "./LocationMarker";
 
-export { Card };
+export { Card, LocationMarker };

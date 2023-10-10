@@ -15,6 +15,7 @@ import {
 } from "react-native-google-places-autocomplete";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { LocationMarker } from "../../components";
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -28,6 +29,100 @@ const Map = () => {
   useEffect(() => {
     searchRef.current?.setAddressText("Kolkata");
   }, []);
+
+  const data = [
+    {
+      id: "1",
+      coordinate: {
+        latitude: 20.5937,
+        longitude: 78.9629,
+      },
+      title: "pujo A",
+      description: "Started few years ago",
+    },
+    {
+      id: "12",
+      coordinate: {
+        latitude: 26.883769,
+        longitude: 75.732925,
+      },
+      title: "pujo A",
+      description: "Started few years ago",
+    },
+    {
+      id: "1223",
+      coordinate: {
+        latitude: 22.478534,
+        longitude: 88.248457,
+      },
+      title: "pujo A",
+      description: "Started few years ago",
+    },
+    {
+      id: "13655",
+      coordinate: {
+        latitude: 22.487316,
+        longitude: 88.464892,
+      },
+      title: "pujo A",
+      description: "Started few years ago",
+    },
+    {
+      id: "32221",
+      coordinate: {
+        latitude: 22.695383,
+        longitude: 88.323551,
+      },
+      title: "pujo A",
+      description: "Started few years ago",
+    },
+    {
+      id: "1330",
+      coordinate: {
+        latitude: 23.739225,
+        longitude: 88.274613,
+      },
+      title: "pujo A",
+      description: "Started few years ago",
+    },
+    {
+      id: "33000",
+      coordinate: {
+        latitude: 23.572353,
+        longitude: 87.672146,
+      },
+      title: "pujo A",
+      description: "Started few years ago",
+    },
+    {
+      id: "1322366",
+      coordinate: {
+        latitude: 23.645833,
+        longitude: 86.630474,
+      },
+      title: "pujo A",
+      description: "Started few years ago",
+    },
+    {
+      id: "102550000",
+      coordinate: {
+        latitude: 21.984553,
+        longitude: 87.381235,
+      },
+      title: "pujo A",
+      description: "Started few years ago",
+    },
+    {
+      id: "100000002",
+      coordinate: {
+        latitude: 21.770388,
+        longitude: 87.608376,
+      },
+      title: "pujo A",
+      description: "Started few years ago",
+    },
+  ];
+
   return (
     <SafeAreaView>
       <View
@@ -50,7 +145,7 @@ const Map = () => {
           }}
           fetchDetails={true}
           query={{
-            key: "",
+            key: "AIzaSyDbhnhCYRoP6MTF2-MtQjLt79g9tsdU4-k",
             language: "en",
           }}
           // renderRightButton={() => <Button title="clear" />}
@@ -79,34 +174,16 @@ const Map = () => {
             longitudeDelta: 0.0121,
           }}
         >
-          <Marker
-            draggable
-            coordinate={{
-              latitude: 20.5937,
-              longitude: 78.9629,
-            }}
-            title={"Test Marker"}
-            description={"This is a description of the marker"}
-          />
-          <Marker
-            draggable
-            coordinate={{
-              latitude: 28.5937,
-              longitude: 75.9629,
-            }}
-            title={"Test Marker"}
-            description={"This is a description of the marker"}
-          />
-          <Marker
-            draggable
-            image={require("../../../assets/images/maa.png")}
-            coordinate={{
-              latitude: 22.5750393,
-              longitude: 88.3661506999999,
-            }}
-            title={"Kolkata"}
-            description={"This is a puja pandal"}
-          />
+          {data.map((location) => (
+            <LocationMarker
+              key={location.id}
+              id={location.id}
+              coordinate={location.coordinate}
+              title={location.title}
+              description={location.description}
+              handleMarker={() => {}}
+            />
+          ))}
         </MapView>
       </View>
     </SafeAreaView>
