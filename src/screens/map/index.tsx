@@ -145,7 +145,7 @@ const Map = () => {
           }}
           fetchDetails={true}
           query={{
-            key: "AIzaSyDbhnhCYRoP6MTF2-MtQjLt79g9tsdU4-k",
+            key: "",
             language: "en",
           }}
           // renderRightButton={() => <Button title="clear" />}
