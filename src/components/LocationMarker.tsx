@@ -3,6 +3,7 @@ import { View, Button, Text, StyleSheet } from "react-native";
 import { ICoordinate } from "../types";
 import { Marker, MarkerPressEvent } from "react-native-maps";
 import BottomSheet, { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 interface ILocationMarker {
   id: string;
@@ -24,17 +25,12 @@ const LocationMarker = ({
   // callbacks
 
   const onPress = (event: MarkerPressEvent) => {
-    // handleMarker(id);
+    handleMarker(id);
   };
   // const handleClosePress = () => bottomSheetModalRef.current.close();
   return (
     <>
       <Marker draggable coordinate={coordinate} onPress={onPress} />
-      {/* <BottomSheet
-        snapPoints={["%100"]}
-        children={<Text>Sheet</Text>}
-        ref={bottomSheetModalRef}
-      /> */}
     </>
   );
 };

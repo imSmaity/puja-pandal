@@ -30,7 +30,13 @@ const Start = () => {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="Map" component={Map} options={{}} />
+        <Stack.Screen
+          name="Map"
+          component={Map}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>
