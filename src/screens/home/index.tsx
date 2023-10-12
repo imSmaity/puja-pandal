@@ -1,5 +1,13 @@
 import React from "react";
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  FlatList,
+  Image,
+  Linking,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { Card } from "../../components";
 import { HomeScreenProps } from "../../types";
 import { districtGroupList } from "../../utils/data";
@@ -26,6 +34,11 @@ const RenderCards = ({ data, navigation }: any) => {
   );
 };
 
+const redirect = () => {
+  Linking.openURL(
+    "https://www.google.com/maps/dir/?api=1&destination=20.5937,78.9629"
+  );
+};
 const Home = ({ navigation }: HomeScreenProps) => {
   return (
     <View style={style.container}>

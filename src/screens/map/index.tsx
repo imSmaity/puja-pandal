@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Button,
   Dimensions,
   Image,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import {
@@ -16,8 +17,12 @@ import {
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LocationMarker } from "../../components";
-
-const deviceWidth = Dimensions.get("window").width;
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import BottomSheet, {
+  BottomSheetModal,
+  BottomSheetModalProvider,
+} from "@gorhom/bottom-sheet";
+import AddPandal from "./AddPandal";
 
 const Map = () => {
   const searchRef = useRef<GooglePlacesAutocompleteRef | null>(null);
@@ -25,9 +30,14 @@ const Map = () => {
     lat: 22.499795,
     lng: 88.275085,
   });
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log("handleSheetChanges", index);
+  }, []);
 
   useEffect(() => {
     searchRef.current?.setAddressText("Kolkata");
+    bottomSheetModalRef.current?.expand();
   }, []);
 
   const data = [
@@ -124,78 +134,46 @@ const Map = () => {
   ];
 
   return (
-    <SafeAreaView>
-      <View
-        style={{
-          alignItems: "center",
-        }}
-      >
-        <GooglePlacesAutocomplete
-          placeholder="Search"
-          ref={searchRef}
-          onPress={(
-            data: GooglePlaceData,
-            details: GooglePlaceDetail | null
-          ) => {
-            // 'details' is provided when fetchDetails = true
-
-            if (details) {
-              setLocation(details.geometry.location);
-            }
-          }}
-          fetchDetails={true}
-          query={{
-            key: "",
-            language: "en",
-          }}
-          // renderRightButton={() => <Button title="clear" />}
-          styles={{
-            container: {
-              zIndex: 100,
-              width: deviceWidth - 30,
-              position: "absolute",
-              marginTop: "3%",
-            },
-            textInput: {
-              height: 50,
-              fontSize: 16,
-            },
-          }}
-        />
-      </View>
-      <View style={{ width: "100%", height: "100%" }}>
-        <MapView
-          provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-          style={styles.map}
-          region={{
-            latitude: location.lat,
-            longitude: location.lng,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121,
-          }}
-        >
-          {data.map((location) => (
-            <LocationMarker
-              key={location.id}
-              id={location.id}
-              coordinate={location.coordinate}
-              title={location.title}
-              description={location.description}
-              handleMarker={() => {}}
-            />
-          ))}
-        </MapView>
-      </View>
-    </SafeAreaView>
+    <>
+      <SafeAreaView>
+        <View style={{ width: "100%", height: "100%" }}>
+          <MapView
+            provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+            style={styles.map}
+            region={{
+              latitude: location.lat,
+              longitude: location.lng,
+              latitudeDelta: 0.015,
+              longitudeDelta: 0.0121,
+            }}
+          >
+            {data.map((location) => (
+              <LocationMarker
+                key={location.id}
+                id={location.id}
+                coordinate={location.coordinate}
+                title={location.title}
+                description={location.description}
+                handleMarker={() => bottomSheetModalRef.current?.expand()}
+              />
+            ))}
+          </MapView>
+        </View>
+        <AddPandal />
+        <GestureHandlerRootView style={styles.sheetContainer}>
+          <BottomSheet index={0} snapPoints={["50%", "100%"]}>
+            <Text style={styles.contentContainer}>Awesome 🎉</Text>
+          </BottomSheet>
+        </GestureHandlerRootView>
+      </SafeAreaView>
+    </>
   );
 };
-
-export default Map;
 
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    height: 400,
+    height: 100,
     width: 400,
     justifyContent: "flex-end",
     alignItems: "center",
@@ -203,4 +181,14 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
+  sheetContainer: {
+    backgroundColor: "#ffffff30",
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    height: "50%",
+  },
+  contentContainer: {},
 });
+
+export default Map;
