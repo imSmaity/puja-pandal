@@ -132,7 +132,7 @@ const Map = () => {
       description: "Started few years ago",
     },
   ];
-
+  console.log("Render2");
   return (
     <>
       <SafeAreaView>

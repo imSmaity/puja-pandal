@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "./screens/home";
-import Profile from "./screens/profile";
-import Map from "./screens/map";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
-import { Map as TMap, fetchMap, mapSelector } from "./redux/map/mapSlice";
+import { fetchDistrict, mapSelector } from "./redux/map/mapSlice";
+import Home from "./screens/home";
+import Map from "./screens/map";
+import Profile from "./screens/profile";
+import Api from "./api";
+import { IMap } from "./redux/map/types";
 
 const Start = () => {
   const Stack = createNativeStackNavigator();
@@ -13,8 +15,15 @@ const Start = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchMap({ id: "20" }));
+    Api.getDistrict()
+      .then((data: IMap) => {
+        // console.log(data);
+        dispatch(fetchDistrict(data));
+      })
+      .catch(console.log);
   }, []);
+
+  console.log("Districts ", select.districts);
   return (
     <NavigationContainer>
       <Stack.Navigator

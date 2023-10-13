@@ -40,6 +40,7 @@ const redirect = () => {
   );
 };
 const Home = ({ navigation }: HomeScreenProps) => {
+  console.log("Render1");
   return (
     <View style={style.container}>
       <View
