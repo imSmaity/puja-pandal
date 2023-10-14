@@ -4,4 +4,7 @@ export const config = {
   DISTRICT: {
     BASE: "/district",
   },
+  MARKER: {
+    BASE: "/marker",
+  },
 };

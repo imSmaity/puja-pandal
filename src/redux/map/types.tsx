@@ -8,5 +8,5 @@ export interface IDistrict {
 }
 
 export interface IMap {
-  districts: null | IDistrict[];
+  districts: IDistrict[][];
 }

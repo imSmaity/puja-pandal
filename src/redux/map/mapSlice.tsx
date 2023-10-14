@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { IMap } from "./types";
+import { IDistrict, IMap } from "./types";
 
 const initialState: IMap = {
-  districts: null,
+  districts: [[]],
 };
 
 export const mapSlice = createSlice({
-  name: "maps",
+  name: "map",
   initialState,
   reducers: {
-    fetchDistrict: (state, action: PayloadAction<IMap>) => {
-      state = { ...state, ...action.payload };
+    fetchDistrict: (state, action: PayloadAction<IDistrict[][]>) => {
+      state.districts.push(...action.payload);
     },
   },
 });

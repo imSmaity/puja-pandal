@@ -29,9 +29,12 @@ const LocationMarker = ({
   };
   // const handleClosePress = () => bottomSheetModalRef.current.close();
   return (
-    <>
-      <Marker draggable coordinate={coordinate} onPress={onPress} />
-    </>
+    <Marker
+      draggable
+      coordinate={coordinate}
+      onPress={onPress}
+      pinColor="red"
+    />
   );
 };
 

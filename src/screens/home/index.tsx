@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   Button,
   FlatList,
   Image,
@@ -12,6 +13,11 @@ import { Card } from "../../components";
 import { HomeScreenProps } from "../../types";
 import { districtGroupList } from "../../utils/data";
 import { getRandomId } from "../../utils/helper";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { fetchDistrict, mapSelector } from "../../redux/map/mapSlice";
+import { IDistrict } from "../../redux/map/types";
+import getSimplifyDistricts from "../../utils/getSimplifyDistricts";
+import Api from "../../api";
 
 const RenderCards = ({ data, navigation }: any) => {
   return (
@@ -22,12 +28,19 @@ const RenderCards = ({ data, navigation }: any) => {
         gap: 8,
       }}
     >
-      {data.item.map((location: any) => (
+      {data.item.map((location: IDistrict) => (
         <Card
-          title={location.title}
+          name={location.name}
           image={location.image}
-          onPress={() => navigation.navigate("Map", { place: location.title })}
-          key={location.id}
+          onPress={() =>
+            navigation.navigate("Map", {
+              _id: location._id,
+              place: location.name,
+              latitude: location.latitude,
+              longitude: location.longitude,
+            })
+          }
+          key={location._id}
         />
       ))}
     </View>
@@ -40,7 +53,26 @@ const redirect = () => {
   );
 };
 const Home = ({ navigation }: HomeScreenProps) => {
-  console.log("Render1");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const select = useAppSelector(mapSelector);
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    setLoading(true);
+    Api.getDistrict()
+      .then((districts: any) => {
+        const SimplifyDistricts = getSimplifyDistricts(districts.data);
+        dispatch(fetchDistrict(SimplifyDistricts));
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+        setError("'Error' indicates that something went wrong.");
+      });
+  }, []);
+
   return (
     <View style={style.container}>
       <View
@@ -96,26 +128,30 @@ const Home = ({ navigation }: HomeScreenProps) => {
       </View>
 
       <View style={{ paddingBottom: "5%", paddingTop: "3%" }}>
-        <FlatList
-          horizontal
-          data={districtGroupList}
-          renderItem={(item) => (
-            <RenderCards
-              key={getRandomId()}
-              data={item}
-              navigation={navigation}
-            />
-          )}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingBottom: 20,
-            paddingTop: 10,
-            overflow: "scroll",
-            gap: 8,
-            paddingLeft: 10,
-            paddingRight: 10,
-          }}
-        />
+        {loading ? (
+          <ActivityIndicator />
+        ) : (
+          <FlatList
+            horizontal
+            data={select.districts}
+            renderItem={(item) => (
+              <RenderCards
+                key={getRandomId()}
+                data={item}
+                navigation={navigation}
+              />
+            )}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingBottom: 20,
+              paddingTop: 10,
+              overflow: "scroll",
+              gap: 8,
+              paddingLeft: 10,
+              paddingRight: 10,
+            }}
+          />
+        )}
       </View>
     </View>
   );

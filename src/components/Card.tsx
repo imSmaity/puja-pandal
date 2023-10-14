@@ -1,24 +1,15 @@
 import React from "react";
-import {
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import toCapitalizes from "../utils/toCapitalizes";
 
 interface ICardProps {
-  title: string;
-  image: {
-    source: any;
-    width: number;
-    height: number;
-    style?: any;
-  };
+  name: string;
+  image: any;
   onPress: () => void;
   style?: any;
 }
 
-const Card = ({ title, image, onPress }: ICardProps) => {
+const Card = ({ name, image, onPress }: ICardProps) => {
   return (
     <View
       style={{
@@ -36,19 +27,23 @@ const Card = ({ title, image, onPress }: ICardProps) => {
           elevation: 10,
         }}
       >
-        {image.source ? (
+        {/* {imageUrl ? (
           <Image
-            source={image.source}
-            width={image.width}
-            height={image.height}
+            source={imageUrl}
+            width={10}
+            height={10}
             style={{
-              ...image.style,
+              width: 100,
+              height: 100,
+              resizeMode: "contain",
               objectFit: "contain",
-              margin: "0 auto"
+              margin: 0,
             }}
           />
-        ) : null}
-        <Text style={{ color: "#000000", textAlign: "center" }}>{title}</Text>
+        ) : null} */}
+        <Text style={{ color: "#000000", textAlign: "center" }}>
+          {toCapitalizes(name)}
+        </Text>
       </TouchableOpacity>
     </View>
   );

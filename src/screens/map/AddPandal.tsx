@@ -1,12 +1,18 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const AddPandal = () => {
+interface IAddPandal {
+  isAddMarker: boolean;
+  onPress: () => void;
+}
+
+const AddPandal = ({ isAddMarker, onPress }: IAddPandal) => {
+  if (isAddMarker) return null;
   return (
     <>
       <TouchableOpacity
         activeOpacity={0.6}
         style={styles.addBtn}
-        onPress={() => {}}
+        onPress={onPress}
       >
         <Image
           source={require("../../../assets/images/map/add.png")}
@@ -15,7 +21,7 @@ const AddPandal = () => {
       </TouchableOpacity>
       <View style={styles.triangle}></View>
       <View style={styles.tooltip}>
-        <Text>Add New Pandal</Text>
+        <Text style={{ color: "#000000" }}>Add New Pandal</Text>
       </View>
     </>
   );
