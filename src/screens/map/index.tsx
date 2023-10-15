@@ -1,137 +1,44 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import {
-  Button,
-  Dimensions,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import {
-  GooglePlaceData,
-  GooglePlaceDetail,
-  GooglePlacesAutocomplete,
-  GooglePlacesAutocompleteRef,
-} from "react-native-google-places-autocomplete";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { useRoute } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Api from "../../api";
 import { LocationMarker } from "../../components";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import BottomSheet, {
-  BottomSheetModal,
-  BottomSheetModalProvider,
-} from "@gorhom/bottom-sheet";
 import AddPandal from "./AddPandal";
+import MarkerDetails from "./MarkerDetails";
+import MarkerSheet from "./MarkerSheet";
+import { IMarker } from "../../types";
 
 const Map = () => {
-  const searchRef = useRef<GooglePlacesAutocompleteRef | null>(null);
+  const [markerDetails, setMarkerDetails] = useState<IMarker>();
+  const [isAddMarker, setIsAddMarker] = useState<boolean>(false);
+  const [isOpenAddMarkerSheet, setIsOpenAddMarkerSheet] =
+    useState<boolean>(false);
+  const [isShowMarkerDetails, setIsShowMarkerDetails] =
+    useState<boolean>(false);
+  const [markers, setMarkers] = useState([]);
+  const { params } = useRoute<any>();
+  const { latitude, longitude, _id, place } = params;
   const [location, setLocation] = useState<{ lat: number; lng: number }>({
     lat: 22.499795,
     lng: 88.275085,
   });
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
-  }, []);
 
   useEffect(() => {
-    searchRef.current?.setAddressText("Kolkata");
-    bottomSheetModalRef.current?.expand();
+    Api.getDistrictMarker(_id)
+      .then((res: any) => setMarkers(res.data.markers))
+      .catch(console.log);
   }, []);
 
-  const data = [
-    {
-      id: "1",
-      coordinate: {
-        latitude: 20.5937,
-        longitude: 78.9629,
-      },
-      title: "pujo A",
-      description: "Started few years ago",
-    },
-    {
-      id: "12",
-      coordinate: {
-        latitude: 26.883769,
-        longitude: 75.732925,
-      },
-      title: "pujo A",
-      description: "Started few years ago",
-    },
-    {
-      id: "1223",
-      coordinate: {
-        latitude: 22.478534,
-        longitude: 88.248457,
-      },
-      title: "pujo A",
-      description: "Started few years ago",
-    },
-    {
-      id: "13655",
-      coordinate: {
-        latitude: 22.487316,
-        longitude: 88.464892,
-      },
-      title: "pujo A",
-      description: "Started few years ago",
-    },
-    {
-      id: "32221",
-      coordinate: {
-        latitude: 22.695383,
-        longitude: 88.323551,
-      },
-      title: "pujo A",
-      description: "Started few years ago",
-    },
-    {
-      id: "1330",
-      coordinate: {
-        latitude: 23.739225,
-        longitude: 88.274613,
-      },
-      title: "pujo A",
-      description: "Started few years ago",
-    },
-    {
-      id: "33000",
-      coordinate: {
-        latitude: 23.572353,
-        longitude: 87.672146,
-      },
-      title: "pujo A",
-      description: "Started few years ago",
-    },
-    {
-      id: "1322366",
-      coordinate: {
-        latitude: 23.645833,
-        longitude: 86.630474,
-      },
-      title: "pujo A",
-      description: "Started few years ago",
-    },
-    {
-      id: "102550000",
-      coordinate: {
-        latitude: 21.984553,
-        longitude: 87.381235,
-      },
-      title: "pujo A",
-      description: "Started few years ago",
-    },
-    {
-      id: "100000002",
-      coordinate: {
-        latitude: 21.770388,
-        longitude: 87.608376,
-      },
-      title: "pujo A",
-      description: "Started few years ago",
-    },
-  ];
+  const handleMarker = (_id: string) => {
+    Api.getMarker(_id)
+      .then(({ data }: any) => {
+        setMarkerDetails(data);
+        setIsShowMarkerDetails(true);
+      })
+      .catch(console.log);
+  };
 
   return (
     <>
@@ -141,30 +48,58 @@ const Map = () => {
             provider={PROVIDER_GOOGLE} // remove if not using Google Maps
             style={styles.map}
             region={{
-              latitude: location.lat,
-              longitude: location.lng,
-              latitudeDelta: 0.015,
-              longitudeDelta: 0.0121,
+              latitude: latitude,
+              longitude: longitude,
+              latitudeDelta: 0.1,
+              longitudeDelta: 0.1,
+            }}
+            onPress={(event) => {
+              setLocation({
+                lat: event.nativeEvent.coordinate.latitude,
+                lng: event.nativeEvent.coordinate.longitude,
+              });
+              setIsAddMarker(true);
             }}
           >
-            {data.map((location) => (
+            <LocationMarker
+              _id=""
+              coordinate={{ latitude: location.lat, longitude: location.lng }}
+              handleMarker={() => {}}
+            />
+            {markers.map((marker: any) => (
               <LocationMarker
-                key={location.id}
-                id={location.id}
-                coordinate={location.coordinate}
-                title={location.title}
-                description={location.description}
-                handleMarker={() => bottomSheetModalRef.current?.expand()}
+                _id={marker._id}
+                coordinate={{
+                  latitude: marker.latitude,
+                  longitude: marker.longitude,
+                }}
+                handleMarker={handleMarker}
               />
             ))}
           </MapView>
         </View>
-        <AddPandal />
-        <GestureHandlerRootView style={styles.sheetContainer}>
-          <BottomSheet index={0} snapPoints={["50%", "100%"]}>
-            <Text style={styles.contentContainer}>Awesome 🎉</Text>
-          </BottomSheet>
-        </GestureHandlerRootView>
+        {isAddMarker ? (
+          <AddPandal
+            isAddMarker={isOpenAddMarkerSheet}
+            onPress={() => setIsOpenAddMarkerSheet(true)}
+          />
+        ) : null}
+        {isOpenAddMarkerSheet ? (
+          <MarkerSheet
+            _id={_id}
+            district={place}
+            onOpen={setIsOpenAddMarkerSheet}
+            latitude={location.lat}
+            longitude={location.lng}
+          />
+        ) : null}
+
+        {isShowMarkerDetails ? (
+          <MarkerDetails
+            data={markerDetails}
+            onClose={() => setIsShowMarkerDetails(false)}
+          />
+        ) : null}
       </SafeAreaView>
     </>
   );
@@ -186,7 +121,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
-    height: "50%",
+    height: "20%",
   },
   contentContainer: {},
 });
