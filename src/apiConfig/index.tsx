@@ -7,4 +7,7 @@ export const config = {
   MARKER: {
     BASE: "/marker",
   },
+  FEEDBACK: {
+    BASE: "/feedback",
+  },
 };

@@ -1,4 +1,7 @@
-import BottomSheet, { BottomSheetModal } from "@gorhom/bottom-sheet";
+import BottomSheet, {
+  BottomSheetModal,
+  BottomSheetTextInput,
+} from "@gorhom/bottom-sheet";
 import React, { useEffect, useRef, useState } from "react";
 import {
   StyleSheet,
@@ -74,28 +77,31 @@ const MarkerSheet = ({
             Add New Pandal
           </Text>
           <View style={{ padding: "5%" }}>
-            <TextInput
+            <BottomSheetTextInput
               placeholder="Enter email"
               placeholderTextColor="#A5A7AB"
               value={email}
               style={styles.inputStyle}
               onChange={(e) => setEmail(e.nativeEvent.text)}
             />
-            <TextInput
+            <BottomSheetTextInput
               placeholder="Enter pandal name"
               placeholderTextColor="#A5A7AB"
               value={pandalName}
               style={styles.inputStyle}
               onChange={(e) => setPandalName(e.nativeEvent.text)}
             />
-            <TextInput
+            <BottomSheetTextInput
               placeholder="Enter more details"
               placeholderTextColor="#A5A7AB"
               value={description}
               multiline={true}
               numberOfLines={2}
+              maxLength={190}
               style={styles.inputStyle}
-              onChange={(e) => setDescription(e.nativeEvent.text)}
+              onChange={(e) => {
+                setDescription(e.nativeEvent.text);
+              }}
             />
 
             <Button
@@ -121,7 +127,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
-    height: "70%",
+    height: "66%",
   },
   contentContainer: {},
   inputStyle: {

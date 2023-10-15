@@ -4,28 +4,21 @@ import { ICoordinate } from "../types";
 import { Marker, MarkerPressEvent } from "react-native-maps";
 import BottomSheet, { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Api from "../api";
 
 interface ILocationMarker {
-  id: string;
+  _id: string;
   coordinate: ICoordinate;
-  handleMarker: (id: string) => void;
-  title: string;
-  description: string;
+  handleMarker: (_id: string) => void;
 }
 
-const LocationMarker = ({
-  id,
-  coordinate,
-  handleMarker,
-  title,
-  description,
-}: ILocationMarker) => {
+const LocationMarker = ({ _id, coordinate, handleMarker }: ILocationMarker) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
   // callbacks
 
   const onPress = (event: MarkerPressEvent) => {
-    handleMarker(id);
+    handleMarker(_id);
   };
   // const handleClosePress = () => bottomSheetModalRef.current.close();
   return (

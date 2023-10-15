@@ -1,19 +1,17 @@
-import BottomSheet, { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useRoute } from "@react-navigation/native";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { GooglePlacesAutocompleteRef } from "react-native-google-places-autocomplete";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Api from "../../api";
 import { LocationMarker } from "../../components";
 import AddPandal from "./AddPandal";
-import { MapParams } from "../../types";
-import MarkerSheet from "./MarkerSheet";
-import Api from "../../api";
 import MarkerDetails from "./MarkerDetails";
+import MarkerSheet from "./MarkerSheet";
+import { IMarker } from "../../types";
 
 const Map = () => {
+  const [markerDetails, setMarkerDetails] = useState<IMarker>();
   const [isAddMarker, setIsAddMarker] = useState<boolean>(false);
   const [isOpenAddMarkerSheet, setIsOpenAddMarkerSheet] =
     useState<boolean>(false);
@@ -32,6 +30,15 @@ const Map = () => {
       .then((res: any) => setMarkers(res.data.markers))
       .catch(console.log);
   }, []);
+
+  const handleMarker = (_id: string) => {
+    Api.getMarker(_id)
+      .then(({ data }: any) => {
+        setMarkerDetails(data);
+        setIsShowMarkerDetails(true);
+      })
+      .catch(console.log);
+  };
 
   return (
     <>
@@ -54,34 +61,19 @@ const Map = () => {
               setIsAddMarker(true);
             }}
           >
-            {/* {data.map((location) => (
-              <LocationMarker
-                key={location.id}
-                id={location.id}
-                coordinate={location.coordinate}
-                title={location.title}
-                description={location.description}
-                handleMarker={() => bottomSheetModalRef.current?.expand()}
-              />
-            ))} */}
-
             <LocationMarker
-              id=""
+              _id=""
               coordinate={{ latitude: location.lat, longitude: location.lng }}
-              title=""
-              description=""
               handleMarker={() => {}}
             />
             {markers.map((marker: any) => (
               <LocationMarker
-                id={marker._id}
+                _id={marker._id}
                 coordinate={{
                   latitude: marker.latitude,
                   longitude: marker.longitude,
                 }}
-                title={marker.pandalName}
-                description={marker.description}
-                handleMarker={() => setIsShowMarkerDetails(true)}
+                handleMarker={handleMarker}
               />
             ))}
           </MapView>
@@ -102,7 +94,12 @@ const Map = () => {
           />
         ) : null}
 
-        {isShowMarkerDetails ? <MarkerDetails /> : null}
+        {isShowMarkerDetails ? (
+          <MarkerDetails
+            data={markerDetails}
+            onClose={() => setIsShowMarkerDetails(false)}
+          />
+        ) : null}
       </SafeAreaView>
     </>
   );

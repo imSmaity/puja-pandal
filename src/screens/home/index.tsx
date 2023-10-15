@@ -47,11 +47,6 @@ const RenderCards = ({ data, navigation }: any) => {
   );
 };
 
-const redirect = () => {
-  Linking.openURL(
-    "https://www.google.com/maps/dir/?api=1&destination=20.5937,78.9629"
-  );
-};
 const Home = ({ navigation }: HomeScreenProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
