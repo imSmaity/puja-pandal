@@ -1,5 +1,6 @@
 import React, { RefObject, useState } from "react";
 import {
+  Dimensions,
   Image,
   Linking,
   StyleSheet,
@@ -35,6 +36,8 @@ interface IMarkerDetails {
   refRBSheet: RefObject<RBSheet>;
 }
 
+const { height } = Dimensions.get("window");
+
 const MarkerDetails = ({ data, onClose, refRBSheet }: IMarkerDetails) => {
   const [ratings, setRatings] = useState<number>(0);
   const [feedback, setFeedback] = useState<string>("");
@@ -62,7 +65,7 @@ const MarkerDetails = ({ data, onClose, refRBSheet }: IMarkerDetails) => {
     // @ts-ignore
     <RBSheet
       ref={refRBSheet}
-      height={540}
+      height={height - 208}
       closeOnPressBack={true}
       closeOnDragDown={true}
       customStyles={{
@@ -83,7 +86,8 @@ const MarkerDetails = ({ data, onClose, refRBSheet }: IMarkerDetails) => {
         style={{
           marginTop: "-9%",
           width: "100%",
-          height: "32%",
+          height: "34%",
+          minHeight: "25%",
           resizeMode: "contain",
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,

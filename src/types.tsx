@@ -15,6 +15,14 @@ export type HomeScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, "Home">; // Replace 'RootStackParamList' with your actual stack navigator's param list
 };
 
+export type MapStackParamList = {
+  Home: undefined;
+  Map: MapParams;
+};
+export type MapScreenProps = {
+  navigation: NativeStackNavigationProp<MapStackParamList, "Map">; // Replace 'RootStackParamList' with your actual stack navigator's param list
+};
+
 export interface IDistrict {
   _id: string;
   name: string;

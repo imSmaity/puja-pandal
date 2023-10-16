@@ -1,5 +1,5 @@
 import React, { RefObject, useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Dimensions, StyleSheet, Text, TextInput, View } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
 import Api from "../../api";
 import { Button } from "../../components";
@@ -12,6 +12,8 @@ interface IMarkerSheet {
   district: string;
   refMarkerRBSheet: RefObject<RBSheet>;
 }
+
+const { height } = Dimensions.get("window");
 
 const MarkerSheet = ({
   onOpen,
@@ -47,7 +49,7 @@ const MarkerSheet = ({
     // @ts-ignore
     <RBSheet
       ref={refMarkerRBSheet}
-      height={450}
+      height={height - 300}
       closeOnPressBack={true}
       closeOnDragDown={true}
       customStyles={{
