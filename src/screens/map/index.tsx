@@ -1,6 +1,6 @@
 import { useRoute } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Api from "../../api";
@@ -9,6 +9,7 @@ import AddPandal from "./AddPandal";
 import MarkerDetails from "./MarkerDetails";
 import MarkerSheet from "./MarkerSheet";
 import { IMarker } from "../../types";
+import RBSheet from "react-native-raw-bottom-sheet";
 
 const Map = () => {
   const [markerDetails, setMarkerDetails] = useState<IMarker>();
@@ -24,6 +25,8 @@ const Map = () => {
     lat: 22.499795,
     lng: 88.275085,
   });
+  const refRBSheet = useRef<RBSheet>(null);
+  const refMarkerRBSheet = useRef<RBSheet>(null);
 
   useEffect(() => {
     Api.getDistrictMarker(_id)
@@ -32,6 +35,7 @@ const Map = () => {
   }, []);
 
   const handleMarker = (_id: string) => {
+    refRBSheet.current?.open();
     Api.getMarker(_id)
       .then(({ data }: any) => {
         setMarkerDetails(data);
@@ -81,25 +85,24 @@ const Map = () => {
         {isAddMarker ? (
           <AddPandal
             isAddMarker={isOpenAddMarkerSheet}
-            onPress={() => setIsOpenAddMarkerSheet(true)}
-          />
-        ) : null}
-        {isOpenAddMarkerSheet ? (
-          <MarkerSheet
-            _id={_id}
-            district={place}
-            onOpen={setIsOpenAddMarkerSheet}
-            latitude={location.lat}
-            longitude={location.lng}
+            onPress={() => refMarkerRBSheet.current?.open()}
           />
         ) : null}
 
-        {isShowMarkerDetails ? (
-          <MarkerDetails
-            data={markerDetails}
-            onClose={() => setIsShowMarkerDetails(false)}
-          />
-        ) : null}
+        <MarkerSheet
+          _id={_id}
+          district={place}
+          onOpen={setIsOpenAddMarkerSheet}
+          latitude={location.lat}
+          longitude={location.lng}
+          refMarkerRBSheet={refMarkerRBSheet}
+        />
+
+        <MarkerDetails
+          data={markerDetails}
+          onClose={() => setIsShowMarkerDetails(false)}
+          refRBSheet={refRBSheet}
+        />
       </SafeAreaView>
     </>
   );
