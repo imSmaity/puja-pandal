@@ -11,7 +11,7 @@ export const mapSlice = createSlice({
   initialState,
   reducers: {
     fetchDistrict: (state, action: PayloadAction<IDistrict[][]>) => {
-      state.districts.push(...action.payload);
+      state.districts = action.payload;
     },
   },
 });
