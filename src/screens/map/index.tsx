@@ -58,6 +58,7 @@ const Map = () => {
               longitudeDelta: 0.1,
             }}
             onPress={(event) => {
+              console.log("press event: ", event)
               setLocation({
                 lat: event.nativeEvent.coordinate.latitude,
                 lng: event.nativeEvent.coordinate.longitude,
@@ -78,6 +79,7 @@ const Map = () => {
                   longitude: marker.longitude,
                 }}
                 handleMarker={handleMarker}
+                key={marker._id}
               />
             ))}
           </MapView>

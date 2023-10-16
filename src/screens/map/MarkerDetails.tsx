@@ -15,6 +15,20 @@ import { IMarker } from "../../types";
 import toCapitalizes from "../../utils/toCapitalizes";
 import toRatings from "../../utils/toRatings";
 
+/**
+ * When place is added, call the API again and reload all locations, with the custom 
+ * marker image
+ * 
+ * - UI not scrollable from bottom after keyboard is opened
+ * 
+ * - Image in the marker detail is streched
+ * - On posting feedback, the button should show a loader and then call the all feedbacks to show it 
+ * in current view
+ * - Loader state
+ * - Toast message
+ * - Current location access
+ */
+
 interface IMarkerDetails {
   data: IMarker | undefined;
   onClose: () => void;
