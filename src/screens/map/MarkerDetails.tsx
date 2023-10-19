@@ -1,6 +1,7 @@
 import React, { RefObject, useState } from "react";
 import {
   ActivityIndicator,
+  Dimensions,
   Image,
   Linking,
   StyleSheet,
@@ -44,6 +45,7 @@ const MarkerDetails = ({
   refRBSheet,
   onFeedbackCB,
 }: IMarkerDetails) => {
+  const { height } = Dimensions.get("window");
   const [ratings, setRatings] = useState<number>(0);
   const [feedback, setFeedback] = useState<string>("");
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
@@ -90,7 +92,7 @@ const MarkerDetails = ({
     // @ts-ignore
     <RBSheet
       ref={refRBSheet}
-      height={540}
+      height={height - 208}
       closeOnPressBack={true}
       closeOnDragDown={true}
       customStyles={{
@@ -111,7 +113,8 @@ const MarkerDetails = ({
         style={{
           marginTop: "-9%",
           width: "100%",
-          height: "32%",
+          height: "34%",
+          minHeight: "25%",
           resizeMode: "contain",
           borderTopLeftRadius: 10,
           borderTopRightRadius: 10,

@@ -1,6 +1,6 @@
 import { useRoute } from "@react-navigation/native";
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Api from "../../api";
@@ -8,10 +8,10 @@ import { LocationMarker } from "../../components";
 import AddPandal from "./AddPandal";
 import MarkerDetails from "./MarkerDetails";
 import MarkerSheet from "./MarkerSheet";
-import { IMarker } from "../../types";
+import { IMarker, MapScreenProps } from "../../types";
 import RBSheet from "react-native-raw-bottom-sheet";
 
-const Map = () => {
+const Map = ({ navigation }: MapScreenProps) => {
   const [markerDetails, setMarkerDetails] = useState<IMarker>();
   const [isAddMarker, setIsAddMarker] = useState<boolean>(false);
   const [isOpenAddMarkerSheet, setIsOpenAddMarkerSheet] =
@@ -73,6 +73,7 @@ const Map = () => {
             />
             {markers.map((marker: any) => (
               <LocationMarker
+                key={marker._id}
                 _id={marker._id}
                 coordinate={{
                   latitude: marker.latitude,
@@ -106,6 +107,27 @@ const Map = () => {
           onFeedbackCB={handleMarker}
           refRBSheet={refRBSheet}
         />
+
+        <TouchableOpacity
+          activeOpacity={0.6}
+          style={{
+            position: "absolute",
+            top: 10,
+            left: 10,
+            backgroundColor: "#fbfbfb97",
+            borderRadius: 100,
+            padding: "1%",
+            alignItems: "center",
+            display: "flex",
+            justifyContent: "center",
+          }}
+          onPress={() => navigation.goBack()}
+        >
+          <Image
+            source={require("../../../assets/images/map/arrow_left.png")}
+            style={{ width: 30, height: 30 }}
+          />
+        </TouchableOpacity>
       </SafeAreaView>
     </>
   );
