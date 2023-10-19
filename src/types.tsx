@@ -9,7 +9,7 @@ export type MapParams = {
 export type RootStackParamList = {
   Home: undefined;
   Map: MapParams;
-  Profile: undefined;
+  PrivacyPolicy: undefined;
 };
 export type HomeScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, "Home">; // Replace 'RootStackParamList' with your actual stack navigator's param list
@@ -21,6 +21,13 @@ export type MapStackParamList = {
 };
 export type MapScreenProps = {
   navigation: NativeStackNavigationProp<MapStackParamList, "Map">; // Replace 'RootStackParamList' with your actual stack navigator's param list
+};
+export type PolicyStackParamList = {
+  Home: undefined;
+  PrivacyPolicy: undefined;
+};
+export type PolicyScreenProps = {
+  navigation: NativeStackNavigationProp<PolicyStackParamList, "PrivacyPolicy">; // Replace 'RootStackParamList' with your actual stack navigator's param list
 };
 
 export interface IDistrict {

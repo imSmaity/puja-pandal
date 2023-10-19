@@ -42,6 +42,14 @@ export default {
         .catch((error) => reject(error));
     });
   },
+  recordUser(data: any) {
+    return new Promise((resolve, reject) => {
+      axiosInstance
+        .post(config.USER.BASE.concat(config.RECORD.BASE), data)
+        .then((res) => resolve(res.data))
+        .catch((error) => reject(error));
+    });
+  },
   addMarker(data: any) {
     return new Promise((resolve, reject) => {
       axiosInstance
