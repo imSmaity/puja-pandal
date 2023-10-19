@@ -1,7 +1,7 @@
 import { useRoute } from "@react-navigation/native";
 import React, { useEffect, useRef, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Api from "../../api";
 import { LocationMarker } from "../../components";
@@ -27,6 +27,7 @@ const Map = ({ navigation }: MapScreenProps) => {
   });
   const refRBSheet = useRef<RBSheet>(null);
   const refMarkerRBSheet = useRef<RBSheet>(null);
+  const [isDetailsOpen, setIsDetailsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     Api.getDistrictMarker(_id)
@@ -35,11 +36,14 @@ const Map = ({ navigation }: MapScreenProps) => {
   }, []);
 
   const handleMarker = (_id: string) => {
+    setIsDetailsOpen(true);
     refRBSheet.current?.open();
+    setIsAddMarker(false);
     Api.getMarker(_id)
       .then(({ data }: any) => {
         setMarkerDetails(data);
         setIsShowMarkerDetails(true);
+        setIsDetailsOpen(false);
       })
       .catch(console.log);
   };
@@ -58,7 +62,6 @@ const Map = ({ navigation }: MapScreenProps) => {
               longitudeDelta: 0.1,
             }}
             onPress={(event) => {
-              console.log("press event: ", event)
               setLocation({
                 lat: event.nativeEvent.coordinate.latitude,
                 lng: event.nativeEvent.coordinate.longitude,
@@ -66,10 +69,9 @@ const Map = ({ navigation }: MapScreenProps) => {
               setIsAddMarker(true);
             }}
           >
-            <LocationMarker
-              _id=""
+            <Marker
+              draggable
               coordinate={{ latitude: location.lat, longitude: location.lng }}
-              handleMarker={() => {}}
             />
             {markers.map((marker: any) => (
               <LocationMarker
@@ -80,7 +82,6 @@ const Map = ({ navigation }: MapScreenProps) => {
                   longitude: marker.longitude,
                 }}
                 handleMarker={handleMarker}
-                key={marker._id}
               />
             ))}
           </MapView>
@@ -88,7 +89,10 @@ const Map = ({ navigation }: MapScreenProps) => {
         {isAddMarker ? (
           <AddPandal
             isAddMarker={isOpenAddMarkerSheet}
-            onPress={() => refMarkerRBSheet.current?.open()}
+            onPress={() => {
+              refMarkerRBSheet.current?.open();
+              setIsAddMarker(false);
+            }}
           />
         ) : null}
 
@@ -99,9 +103,11 @@ const Map = ({ navigation }: MapScreenProps) => {
           latitude={location.lat}
           longitude={location.lng}
           refMarkerRBSheet={refMarkerRBSheet}
+          onClose={() => setIsAddMarker(true)}
         />
 
         <MarkerDetails
+          loading={isDetailsOpen}
           data={markerDetails}
           onClose={() => setIsShowMarkerDetails(false)}
           onFeedbackCB={handleMarker}

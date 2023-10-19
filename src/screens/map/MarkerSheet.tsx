@@ -6,6 +6,7 @@ import { Button } from "../../components";
 
 interface IMarkerSheet {
   onOpen: (isClose: boolean) => void;
+  onClose: () => void;
   latitude: number;
   longitude: number;
   _id: string;
@@ -22,6 +23,7 @@ const MarkerSheet = ({
   _id,
   district,
   refMarkerRBSheet,
+  onClose,
 }: IMarkerSheet) => {
   const [pandalName, setPandalName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -63,6 +65,7 @@ const MarkerSheet = ({
           height: 4,
         },
       }}
+      onClose={onClose}
     >
       <View style={{}}>
         <Text
@@ -102,17 +105,27 @@ const MarkerSheet = ({
               setDescription(e.nativeEvent.text);
             }}
           />
-
           <Button
-            label="Submit"
             onPress={() => {
               setMarker();
               onOpen(false);
               refMarkerRBSheet.current?.close();
             }}
             style={{ width: "50%" }}
-            containerStyle={{ paddingTop: "8%", alignItems: "center" }}
-          />
+            containerStyle={{ paddingTop: "3%", alignItems: "center" }}
+          >
+            <Text
+              style={[
+                {
+                  color: "#ffffff",
+                  textAlign: "center",
+                  fontSize: 16,
+                },
+              ]}
+            >
+              Submit
+            </Text>
+          </Button>
         </View>
       </View>
     </RBSheet>

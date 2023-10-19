@@ -10,4 +10,10 @@ export const config = {
   FEEDBACK: {
     BASE: "/feedback",
   },
+  USER: {
+    BASE: "/user",
+  },
+  RECORD: {
+    BASE: "/record",
+  },
 };

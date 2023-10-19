@@ -1,12 +1,23 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useEffect } from "react";
 import Home from "./screens/home";
 import Map from "./screens/map";
-import Profile from "./screens/profile";
+import PrivacyPolicy from "./screens/Policy";
+import Api from "./api";
+import DeviceInfo from "react-native-device-info";
 
 const Start = () => {
   const Stack = createNativeStackNavigator();
+
+  useEffect(() => {
+    DeviceInfo.getUniqueId()
+      .then((id) => {
+        console.log(id);
+        Api.recordUser({ id }).then(console.log).catch(console.log);
+      })
+      .catch(console.log);
+  }, []);
 
   return (
     <NavigationContainer>
@@ -30,7 +41,13 @@ const Start = () => {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen
+          name="PrivacyPolicy"
+          component={PrivacyPolicy}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
