@@ -1,20 +1,13 @@
-import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
 import Home from "./screens/home";
-import Profile from "./screens/profile";
 import Map from "./screens/map";
-import { useAppDispatch, useAppSelector } from "./redux/hooks";
-import { Map as TMap, fetchMap, mapSelector } from "./redux/map/mapSlice";
+import Profile from "./screens/profile";
 
 const Start = () => {
   const Stack = createNativeStackNavigator();
-  const select = useAppSelector(mapSelector);
-  const dispatch = useAppDispatch();
-  console.log(select);
-  useEffect(() => {
-    dispatch(fetchMap({ id: "20" }));
-  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -30,7 +23,13 @@ const Start = () => {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="Map" component={Map} options={{}} />
+        <Stack.Screen
+          name="Map"
+          component={Map}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>

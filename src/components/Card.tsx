@@ -1,38 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import toCapitalizes from "../utils/toCapitalizes";
 import {
-  Image,
-  ImageStyle,
-  Text,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from "react-native";
+  Placeholder,
+  PlaceholderMedia,
+  PlaceholderLine,
+  Fade,
+} from "rn-placeholder";
 
 interface ICardProps {
-  title: string;
-  image: {
-    source: any;
-    width: number;
-    height: number;
-    style?: any;
-  };
+  name: string;
+  image: any;
   onPress: () => void;
   style?: any;
 }
 
-const Card = ({ title, image, onPress }: ICardProps) => {
+const PlaceHolder = () => {
   return (
-    <View style={{ padding: "2%", paddingLeft: "3.5%", paddingRight: "1%" }}>
-      <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
-        {image.source ? (
-          <Image
-            source={image.source}
-            width={image.width}
-            height={image.height}
-            style={image.style}
-          />
-        ) : null}
-        <Text style={{ color: "#000000", textAlign: "center" }}>{title}</Text>
+    <View
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Placeholder Animation={Fade} style={{ width: 100 }}>
+        <PlaceholderLine style={{ borderRadius: 5 }} />
+      </Placeholder>
+    </View>
+  );
+};
+
+const Card = ({ name, image, onPress }: ICardProps) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  return (
+    <View
+      style={{
+        padding: 8,
+        backgroundColor: "#ffff",
+        shadowColor: "#000000",
+        elevation: 4,
+        borderRadius: 4,
+      }}
+    >
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={onPress}
+        style={{
+          elevation: 10,
+        }}
+      >
+        <Image
+          source={{ uri: image }}
+          width={10}
+          height={10}
+          style={{
+            width: 100,
+            height: 100,
+            resizeMode: "contain",
+            objectFit: "contain",
+            margin: 0,
+          }}
+        />
+
+        <Text style={{ color: "#000000", textAlign: "center" }}>
+          {toCapitalizes(name)}
+        </Text>
       </TouchableOpacity>
     </View>
   );

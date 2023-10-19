@@ -1,22 +1,14 @@
 import React from "react";
-import {
-  Image,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import { Card } from "./components";
-import Start from "./Start";
+import { StatusBar } from "react-native";
 import { Provider } from "react-redux";
+import Start from "./Start";
 import { store } from "./redux/store";
 
 const App = () => {
   return (
     // <SafeAreaView>
     <Provider store={store}>
-      <StatusBar backgroundColor={"#b8b5b5"} />
+      <StatusBar backgroundColor={"#c8c8c8"} />
       <Start />
     </Provider>
     // </SafeAreaView>
