@@ -1,5 +1,6 @@
 import React, { RefObject, useState } from "react";
 import {
+  ActivityIndicator,
   Image,
   Linking,
   StyleSheet,
@@ -7,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ToastAndroid,
 } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
 import Api from "../../api";
@@ -16,13 +18,13 @@ import toCapitalizes from "../../utils/toCapitalizes";
 import toRatings from "../../utils/toRatings";
 
 /**
- * When place is added, call the API again and reload all locations, with the custom 
+ * When place is added, call the API again and reload all locations, with the custom
  * marker image
- * 
+ *
  * - UI not scrollable from bottom after keyboard is opened
- * 
+ *
  * - Image in the marker detail is streched
- * - On posting feedback, the button should show a loader and then call the all feedbacks to show it 
+ * - On posting feedback, the button should show a loader and then call the all feedbacks to show it
  * in current view
  * - Loader state
  * - Toast message
@@ -32,12 +34,29 @@ import toRatings from "../../utils/toRatings";
 interface IMarkerDetails {
   data: IMarker | undefined;
   onClose: () => void;
+  onFeedbackCB: (_id: string) => void;
   refRBSheet: RefObject<RBSheet>;
 }
 
-const MarkerDetails = ({ data, onClose, refRBSheet }: IMarkerDetails) => {
+const MarkerDetails = ({
+  data,
+  onClose,
+  refRBSheet,
+  onFeedbackCB,
+}: IMarkerDetails) => {
   const [ratings, setRatings] = useState<number>(0);
   const [feedback, setFeedback] = useState<string>("");
+  const [submitLoading, setSubmitLoading] = useState<boolean>(false);
+
+  const showToast = ({ message }: { message: string }) => {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.TOP,
+      0,
+      50
+    );
+  };
 
   const redirect = () => {
     Linking.openURL(
@@ -50,12 +69,21 @@ const MarkerDetails = ({ data, onClose, refRBSheet }: IMarkerDetails) => {
       rating: ratings,
       feedback,
     };
+    setSubmitLoading(true);
     Api.addMarkerFeedback(String(data?._id), ratingData)
       .then((res) => {
         setRatings(0);
         setFeedback("");
+        setSubmitLoading(false);
+        showToast({ message: "Your feedback is recorded" });
+        if (data) {
+          onFeedbackCB(data._id);
+        }
       })
-      .catch(console.log);
+      .catch((err) => {
+        console.log(err);
+        setSubmitLoading(false);
+      });
   };
 
   return (
@@ -178,9 +206,32 @@ const MarkerDetails = ({ data, onClose, refRBSheet }: IMarkerDetails) => {
               display: "flex",
               alignItems: "flex-end",
             }}
-            style={{ width: "28%", padding: "3%" }}
+            style={{
+              width: "28%",
+              padding: "3%",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 8,
+            }}
             onPress={setPost}
-          />
+          >
+            {submitLoading && (
+              <ActivityIndicator size="small" color="#f6f6f6" />
+            )}
+            <Text
+              style={[
+                {
+                  color: "#ffffff",
+                  textAlign: "center",
+                  fontSize: 16,
+                },
+              ]}
+            >
+              Post
+            </Text>
+          </Button>
         </View>
       </View>
     </RBSheet>

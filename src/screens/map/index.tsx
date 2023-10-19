@@ -103,6 +103,7 @@ const Map = () => {
         <MarkerDetails
           data={markerDetails}
           onClose={() => setIsShowMarkerDetails(false)}
+          onFeedbackCB={handleMarker}
           refRBSheet={refRBSheet}
         />
       </SafeAreaView>

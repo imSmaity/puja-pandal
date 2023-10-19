@@ -5,6 +5,7 @@ import {
   View,
   ViewStyle,
 } from "react-native";
+import React from "react"
 
 interface IButton {
   label: string;
@@ -12,6 +13,7 @@ interface IButton {
   containerStyle?: ViewStyle;
   style?: ViewStyle;
   textStyle?: TextStyle;
+  children?: React.ReactNode
 }
 
 const Button = ({
@@ -20,7 +22,9 @@ const Button = ({
   textStyle,
   label,
   onPress,
+  children
 }: IButton) => {
+
   return (
     <View style={containerStyle}>
       <TouchableOpacity
@@ -32,21 +36,12 @@ const Button = ({
             borderRadius: 5,
             padding: "5%",
           },
-          style,
+          style
         ]}
       >
-        <Text
-          style={[
-            {
-              color: "#ffffff",
-              textAlign: "center",
-              fontSize: 16,
-            },
-            textStyle,
-          ]}
-        >
-          {label}
-        </Text>
+        {
+          children
+        }
       </TouchableOpacity>
     </View>
   );
