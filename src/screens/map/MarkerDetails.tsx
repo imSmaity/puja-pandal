@@ -131,7 +131,10 @@ const MarkerDetails = ({
             }}
           >
             <View style={{ width: "70%" }}>
-              <Text style={{ fontSize: 18, color: "#000000" }}>
+              <Text
+                style={{ fontSize: 18, color: "#000000" }}
+                numberOfLines={2}
+              >
                 {data?.pandalName}
               </Text>
             </View>
