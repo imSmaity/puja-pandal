@@ -1,20 +1,18 @@
-import React from 'react';
-import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import React from "react";
+import { StatusBar } from "react-native";
+import { Provider } from "react-redux";
+import Start from "./Start";
+import { store } from "./redux/store";
 
-function App(): JSX.Element {
+const App = () => {
   return (
-    <SafeAreaView>
-      <StatusBar />
-      <View style={style.container}>
-        <Text style={style.text}>Durga Maa</Text>
-      </View>
-    </SafeAreaView>
+    // <SafeAreaView>
+    <Provider store={store}>
+      <StatusBar backgroundColor={"#c8c8c8"} />
+      <Start />
+    </Provider>
+    // </SafeAreaView>
   );
-}
+};
 
 export default App;
-
-const style = StyleSheet.create({
-  container: {backgroundColor: '#ffffff', height: '100%'},
-  text: {color: '#000000'},
-});
