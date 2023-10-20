@@ -1,10 +1,7 @@
-import React, { useCallback, useMemo, useRef } from "react";
-import { View, Button, Text, StyleSheet } from "react-native";
-import { ICoordinate } from "../types";
+import React from "react";
+import { StyleSheet } from "react-native";
 import { Marker, MarkerPressEvent } from "react-native-maps";
-import BottomSheet, { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import Api from "../api";
+import { ICoordinate } from "../types";
 
 interface ILocationMarker {
   _id: string;
@@ -13,8 +10,6 @@ interface ILocationMarker {
 }
 
 const LocationMarker = ({ _id, coordinate, handleMarker }: ILocationMarker) => {
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-
   // callbacks
 
   const onPress = (event: MarkerPressEvent) => {
@@ -26,7 +21,7 @@ const LocationMarker = ({ _id, coordinate, handleMarker }: ILocationMarker) => {
       draggable
       coordinate={coordinate}
       onPress={onPress}
-      pinColor="red"
+      icon={require("../../assets/images/map/maa.png")}
     />
   );
 };

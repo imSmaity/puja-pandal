@@ -5,26 +5,23 @@ import {
   View,
   ViewStyle,
 } from "react-native";
-import React from "react"
+import React from "react";
 
 interface IButton {
-  label: string;
   onPress: () => void;
   containerStyle?: ViewStyle;
   style?: ViewStyle;
   textStyle?: TextStyle;
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
 const Button = ({
   containerStyle,
   style,
   textStyle,
-  label,
   onPress,
-  children
+  children,
 }: IButton) => {
-
   return (
     <View style={containerStyle}>
       <TouchableOpacity
@@ -36,12 +33,10 @@ const Button = ({
             borderRadius: 5,
             padding: "5%",
           },
-          style
+          style,
         ]}
       >
-        {
-          children
-        }
+        {children}
       </TouchableOpacity>
     </View>
   );

@@ -7,6 +7,7 @@ import {
   Linking,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { Card } from "../../components";
@@ -32,14 +33,14 @@ const RenderCards = ({ data, navigation }: any) => {
         <Card
           name={location.name}
           image={location.image}
-          onPress={() =>
+          onPress={() => {
             navigation.navigate("Map", {
               _id: location._id,
               place: location.name,
               latitude: location.latitude,
               longitude: location.longitude,
-            })
-          }
+            });
+          }}
           key={location._id}
         />
       ))}
@@ -148,6 +149,14 @@ const Home = ({ navigation }: HomeScreenProps) => {
           />
         )}
       </View>
+      <TouchableOpacity
+        style={{ paddingTop: loading ? "80%" : 0 }}
+        onPress={() => navigation.navigate("PrivacyPolicy")}
+      >
+        <Text style={{ textAlign: "center", textDecorationLine: "underline" }}>
+          Privacy Policy
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };

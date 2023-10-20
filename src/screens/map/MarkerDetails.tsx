@@ -17,6 +17,7 @@ import { Button, Ratings } from "../../components";
 import { IMarker } from "../../types";
 import toCapitalizes from "../../utils/toCapitalizes";
 import toRatings from "../../utils/toRatings";
+import { Fade, Placeholder, PlaceholderMedia } from "rn-placeholder";
 
 /**
  * When place is added, call the API again and reload all locations, with the custom
@@ -37,6 +38,7 @@ interface IMarkerDetails {
   onClose: () => void;
   onFeedbackCB: (_id: string) => void;
   refRBSheet: RefObject<RBSheet>;
+  loading: boolean;
 }
 
 const MarkerDetails = ({
@@ -44,6 +46,7 @@ const MarkerDetails = ({
   onClose,
   refRBSheet,
   onFeedbackCB,
+  loading,
 }: IMarkerDetails) => {
   const { height } = Dimensions.get("window");
   const [ratings, setRatings] = useState<number>(0);
@@ -108,138 +111,143 @@ const MarkerDetails = ({
       }}
       onClose={onClose}
     >
-      <Image
-        source={require("../../../assets/images/map/maa-durga.jpg")}
-        style={{
-          marginTop: "-9%",
-          width: "100%",
-          height: "34%",
-          minHeight: "25%",
-          resizeMode: "contain",
-          borderTopLeftRadius: 10,
-          borderTopRightRadius: 10,
-        }}
-      />
-      <View>
-        <View style={{ padding: "5%" }}>
-          <View
+      {loading ? (
+        <ActivityIndicator color={"#0696FF"} size={40} />
+      ) : (
+        <>
+          <Image
+            source={require("../../../assets/images/map/maa-durga.jpg")}
             style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
+              marginTop: "-14%",
+              width: "100%",
+              height: "34%",
+              minHeight: "25%",
+              resizeMode: "contain",
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
             }}
-          >
-            <View style={{ width: "70%" }}>
-              <Text
-                style={{ fontSize: 18, color: "#000000" }}
-                numberOfLines={2}
-              >
-                {data?.pandalName}
-              </Text>
-            </View>
-            <TouchableOpacity
-              activeOpacity={0.5}
-              style={{
-                borderColor: "#a8a5a5",
-                borderWidth: 1,
-                borderRadius: 50,
-                padding: "2%",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                width: "32%",
-              }}
-              onPress={redirect}
-            >
-              <Image
-                source={require("../../../assets/images/map/rectangle.png")}
-                style={{ width: 20, height: 20 }}
-              />
-              <Image
-                source={require("../../../assets/images/map/arrow.png")}
+          />
+          <View>
+            <View style={{ padding: "5%" }}>
+              <View
                 style={{
-                  width: 10,
-                  height: 10,
-                  position: "absolute",
-                  left: "13%",
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
                 }}
+              >
+                <View style={{ width: "70%" }}>
+                  <Text
+                    style={{ fontSize: 18, color: "#000000" }}
+                    numberOfLines={2}
+                  >
+                    {data?.pandalName}
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  activeOpacity={0.5}
+                  style={{
+                    borderColor: "#a8a5a5",
+                    borderWidth: 1,
+                    borderRadius: 50,
+                    padding: "2%",
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    width: "32%",
+                  }}
+                  onPress={redirect}
+                >
+                  <Image
+                    source={require("../../../assets/images/map/rectangle.png")}
+                    style={{ width: 20, height: 20 }}
+                  />
+                  <Image
+                    source={require("../../../assets/images/map/arrow.png")}
+                    style={{
+                      width: 10,
+                      height: 10,
+                      position: "absolute",
+                      left: "13%",
+                    }}
+                  />
+                  <Text style={{ color: "#000000" }}>Directions</Text>
+                </TouchableOpacity>
+              </View>
+              <Text style={{ color: "#000000" }}>
+                {toCapitalizes(String(data?.district.name))}
+              </Text>
+              <Ratings
+                ratings={toRatings(data?.feedbacks)}
+                numberOfRatings={data?.feedbacks.length}
+                disabled={true}
+                starContainerStyle={{ padding: "1%" }}
+                starStyle={{ width: 16, height: 16 }}
               />
-              <Text style={{ color: "#000000" }}>Directions</Text>
-            </TouchableOpacity>
+              <Text style={{ paddingTop: "4%", color: "#000000" }}>
+                {data?.description}
+              </Text>
+              <Ratings
+                ratings={ratings}
+                setRatings={setRatings}
+                disabled={false}
+                containerStyle={{ justifyContent: "center" }}
+              />
+              <TextInput
+                placeholder="Write your comment and feedback"
+                placeholderTextColor="#A5A7AB"
+                multiline={true}
+                maxLength={90}
+                value={feedback}
+                style={{
+                  backgroundColor: "#F8F8F8",
+                  borderBottomWidth: 2,
+                  borderRadius: 5,
+                  borderColor: "#0696FF",
+                  fontSize: 14,
+                  color: "#000000",
+                  textAlignVertical: "top",
+                }}
+                onChange={(e) => setFeedback(e.nativeEvent.text)}
+              />
+              <Button
+                containerStyle={{
+                  paddingTop: "3%",
+                  display: "flex",
+                  alignItems: "flex-end",
+                }}
+                style={{
+                  width: "24%",
+                  padding: "3%",
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
+                }}
+                onPress={setPost}
+              >
+                {submitLoading && (
+                  <ActivityIndicator size="small" color="#f6f6f6" />
+                )}
+                <Text
+                  style={[
+                    {
+                      color: "#ffffff",
+                      textAlign: "center",
+                      fontSize: 16,
+                    },
+                  ]}
+                >
+                  Post
+                </Text>
+              </Button>
+            </View>
           </View>
-          <Text style={{ color: "#000000" }}>
-            {toCapitalizes(String(data?.district.name))}
-          </Text>
-          <Ratings
-            ratings={toRatings(data?.feedbacks)}
-            numberOfRatings={data?.feedbacks.length}
-            disabled={true}
-            starContainerStyle={{ padding: "1%" }}
-            starStyle={{ width: 16, height: 16 }}
-          />
-          <Text style={{ paddingTop: "4%", color: "#000000" }}>
-            {data?.description}
-          </Text>
-          <Ratings
-            ratings={ratings}
-            setRatings={setRatings}
-            disabled={false}
-            containerStyle={{ justifyContent: "center" }}
-          />
-          <TextInput
-            placeholder="Write your comment and feedback"
-            placeholderTextColor="#A5A7AB"
-            multiline={true}
-            maxLength={90}
-            value={feedback}
-            style={{
-              backgroundColor: "#F8F8F8",
-              borderBottomWidth: 2,
-              borderRadius: 5,
-              borderColor: "#0696FF",
-              fontSize: 14,
-              color: "#000000",
-              textAlignVertical: "top",
-            }}
-            onChange={(e) => setFeedback(e.nativeEvent.text)}
-          />
-          <Button
-            label="Post"
-            containerStyle={{
-              paddingTop: "4%",
-              display: "flex",
-              alignItems: "flex-end",
-            }}
-            style={{
-              width: "28%",
-              padding: "3%",
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 8,
-            }}
-            onPress={setPost}
-          >
-            {submitLoading && (
-              <ActivityIndicator size="small" color="#f6f6f6" />
-            )}
-            <Text
-              style={[
-                {
-                  color: "#ffffff",
-                  textAlign: "center",
-                  fontSize: 16,
-                },
-              ]}
-            >
-              Post
-            </Text>
-          </Button>
-        </View>
-      </View>
+        </>
+      )}
     </RBSheet>
   );
 };
