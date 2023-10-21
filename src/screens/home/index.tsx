@@ -153,7 +153,13 @@ const Home = ({ navigation }: HomeScreenProps) => {
         style={{ paddingTop: loading ? "80%" : 0 }}
         onPress={() => navigation.navigate("PrivacyPolicy")}
       >
-        <Text style={{ textAlign: "center", textDecorationLine: "underline" }}>
+        <Text
+          style={{
+            textAlign: "center",
+            textDecorationLine: "underline",
+            color: "#bbbbbb",
+          }}
+        >
           Privacy Policy
         </Text>
       </TouchableOpacity>
