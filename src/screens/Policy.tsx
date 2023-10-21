@@ -8,31 +8,33 @@ const Policy = ({ navigation }: any) => {
         Privacy Policy
       </Text>
       <View style={{ padding: "5%", display: "flex", gap: 10 }}>
-        <Text style={{ fontSize: 16 }}>Privacy Policy for Puja Pandal</Text>
-        <Text>
-          1. This Privacy Policy explains how "Puja Pandal" ("we," "us," or
-          "our") handles user information within the mobile application "Puja
-          Pandal." By using the app.
+        <Text style={{ fontSize: 16, color: "#8f8d8d" }}>
+          Privacy Policy for Puja Pandal
         </Text>
-        <Text>
-          2. We do not collect any login data or personal information from
+        <Text style={{ color: "#8f8d8d" }}>
+          This Privacy Policy explains how "Puja Pandal" ("we," "us," or "our")
+          handles user information within the mobile application "Puja Pandal."
+          By using the app.
+        </Text>
+        <Text style={{ color: "#8f8d8d" }}>
+          1. We do not collect any login data or personal information from
           users.
         </Text>
-        <Text>
-          3. Data Usage Our app does not collect, store, or transmit any
+        <Text style={{ color: "#8f8d8d" }}>
+          2. Data Usage Our app does not collect, store, or transmit any
           personal or login data from users. We do not track your activity or
           request any permissions related to personal information.
         </Text>
-        <Text>
-          4. Data Security and Indian IT Act, 2000 We are committed to
+        <Text style={{ color: "#8f8d8d" }}>
+          3. Data Security and Indian IT Act, 2000 We are committed to
           safeguarding user data and adhere to the data security requirements
           outlined in the Indian Information Technology Act, 2000. We take
           reasonable measures to protect any data we may handle and maintain
           safeguards against unauthorized access, disclosure, or damage to data,
           as required by Section 43A of the IT Act.
         </Text>
-        <Text>
-          5. Third-Party Services, We do not utilize any third-party services or
+        <Text style={{ color: "#8f8d8d" }}>
+          4. Third-Party Services, We do not utilize any third-party services or
           libraries that may collect user data.
         </Text>
       </View>
