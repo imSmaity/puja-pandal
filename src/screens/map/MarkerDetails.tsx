@@ -17,7 +17,6 @@ import { Button, Ratings } from "../../components";
 import { IMarker } from "../../types";
 import toCapitalizes from "../../utils/toCapitalizes";
 import toRatings from "../../utils/toRatings";
-import { Fade, Placeholder, PlaceholderMedia } from "rn-placeholder";
 
 /**
  * When place is added, call the API again and reload all locations, with the custom

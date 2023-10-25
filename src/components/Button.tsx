@@ -29,7 +29,7 @@ const Button = ({
         activeOpacity={0.8}
         style={[
           {
-            backgroundColor: "#0696FF",
+            backgroundColor: "#0696FF",  
             borderRadius: 5,
             padding: "5%",
           },
